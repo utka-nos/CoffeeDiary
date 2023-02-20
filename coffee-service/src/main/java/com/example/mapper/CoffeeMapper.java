@@ -5,6 +5,7 @@ import com.example.dto.CoffeeDescriptionDTO;
 import com.example.entity.Coffee;
 import com.example.entity.CoffeeDescription;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,12 +17,16 @@ public class CoffeeMapper{
         coffee.setId(coffeeDTO.getId());
         coffee.setName(coffeeDTO.getName());
 
-        List<CoffeeDescription> coffeeDescriptions =
-                coffeeDTO.getCoffeeDescriptions()
-                        .stream()
-                        .map(CoffeeDescriptionMapper::toEntity)
-                        .collect(Collectors.toList());
-        coffee.setCoffeeDescriptions(coffeeDescriptions);
+        if (coffeeDTO.getCoffeeDescriptions() != null) {
+            List<CoffeeDescription> coffeeDescriptions =
+                    coffeeDTO.getCoffeeDescriptions()
+                            .stream()
+                            .map(CoffeeDescriptionMapper::toEntity)
+                            .collect(Collectors.toList());
+            coffee.setCoffeeDescriptions(coffeeDescriptions);
+        } else {
+            coffee.setCoffeeDescriptions(new ArrayList<>());
+        }
 
         return coffee;
     }
@@ -32,12 +37,16 @@ public class CoffeeMapper{
         coffeeDTO.setId(coffee.getId());
         coffeeDTO.setName(coffee.getName());
 
-        List<CoffeeDescriptionDTO> coffeeDescriptions =
-                coffee.getCoffeeDescriptions()
-                        .stream()
-                        .map(CoffeeDescriptionMapper::toDTO)
-                        .collect(Collectors.toList());
-        coffeeDTO.setCoffeeDescriptions(coffeeDescriptions);
+        if(coffee.getCoffeeDescriptions() != null) {
+            List<CoffeeDescriptionDTO> coffeeDescriptions =
+                    coffee.getCoffeeDescriptions()
+                            .stream()
+                            .map(CoffeeDescriptionMapper::toDTO)
+                            .collect(Collectors.toList());
+            coffeeDTO.setCoffeeDescriptions(coffeeDescriptions);
+        } else {
+            coffeeDTO.setCoffeeDescriptions(new ArrayList<>());
+        }
 
         return coffeeDTO;
     }

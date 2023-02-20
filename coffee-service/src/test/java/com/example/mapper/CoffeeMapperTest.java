@@ -1,26 +1,66 @@
 package com.example.mapper;
 
 import com.example.dto.CoffeeDTO;
+import com.example.dto.CoffeeDescriptionDTO;
+import com.example.dto.PerformanceDTO;
 import com.example.entity.Coffee;
+import com.example.entity.CoffeeDescription;
+import com.example.entity.Performance;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CoffeeMapperTest {
 
+    Performance perf1 = new Performance(1L);
+    Performance perf2 = new Performance(2L);
+
+    CoffeeDescription coffeeDescription0 = new CoffeeDescription();
+    CoffeeDescription coffeeDescription1 = new CoffeeDescription(1L, "taste", "good", perf1);
+    CoffeeDescription coffeeDescription2 = new CoffeeDescription(2L, "bitter", "so-so", perf2);
+    CoffeeDescription coffeeDescription3 = new CoffeeDescription(3L, "sweet", "", perf1);
+
+    PerformanceDTO perfDTO1 = new PerformanceDTO(1L);
+    PerformanceDTO perfDTO2 = new PerformanceDTO(2L);
+
+    CoffeeDescriptionDTO coffeeDescriptionDTO0 = new CoffeeDescriptionDTO();
+    CoffeeDescriptionDTO coffeeDescriptionDTO1 = new CoffeeDescriptionDTO(1L, "taste", "good", perfDTO1);
+    CoffeeDescriptionDTO coffeeDescriptionDTO2 = new CoffeeDescriptionDTO(2L, "bitter", "so-so", perfDTO2);
+    CoffeeDescriptionDTO coffeeDescriptionDTO3 = new CoffeeDescriptionDTO(3L, "sweet", "", perfDTO1);
+
     @Test
-    public void coffeeMapperValidTest() {
-        Coffee coffee = new Coffee();
-        CoffeeDTO coffeeDTO = new CoffeeDTO();
-
-        coffee.setId(1L);
-        coffeeDTO.setId(1L);
-
-        String name = "kolumbia";
-        coffee.setName(name);
-        coffeeDTO.setName(name);
+    public void onlySimpleFieldsValidTest() {
+        Coffee coffee = new Coffee(2L, "kolumbia", new ArrayList<>());
+        CoffeeDTO coffeeDTO = new CoffeeDTO(2L, "kolumbia", new ArrayList<>());
 
         Assertions.assertEquals(coffee, CoffeeMapper.toEntity(coffeeDTO));
         Assertions.assertEquals(coffeeDTO, CoffeeMapper.toDTO(coffee));
+    }
+
+    @Test
+    public void allFieldsValidTest() {
+
+        Coffee coffee = new Coffee(
+                1L,
+                "brazil",
+                List.of(coffeeDescription0, coffeeDescription1, coffeeDescription2, coffeeDescription3)
+        );
+
+        CoffeeDTO coffeeDTO = new CoffeeDTO(
+                1L,
+                "brazil",
+                List.of(coffeeDescriptionDTO0, coffeeDescriptionDTO1, coffeeDescriptionDTO2, coffeeDescriptionDTO3)
+        );
+
+        Assertions.assertEquals(coffee, CoffeeMapper.toEntity(coffeeDTO));
+        Assertions.assertEquals(coffeeDTO, CoffeeMapper.toDTO(coffee));
+    }
+
+    @Test
+    public void simpleFieldsInvalidTest() {
+
     }
 
 }
