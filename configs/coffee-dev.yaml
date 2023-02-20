@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/coffee-book
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5
+    region: default
+    service-url:
+      default: http://${EUREKA_HOSTNAME}:${EUREKA_PORT}

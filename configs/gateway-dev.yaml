@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # Включаем перенаправление для коректной работы api gateway
+          enabled: true
+          # Название сервиса бует НЕ регистрозавсимым
+          lower-case-service-id: true
+
+eureka:
+  client:
+    service-url:
+      default: http://${EUREKA_HOST}:${EUREKA_PORT}
