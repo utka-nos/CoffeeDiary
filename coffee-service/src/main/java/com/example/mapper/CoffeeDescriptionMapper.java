@@ -12,8 +12,8 @@ public class CoffeeDescriptionMapper{
         coffeeDescription.setDescription(coffeeDescriptionDTO.getDescription());
         coffeeDescription.setId(coffeeDescriptionDTO.getId());
         coffeeDescription.setName(coffeeDescriptionDTO.getName());
-        if (coffeeDescriptionDTO.getPerformanceDTO() != null) {
-            coffeeDescription.setPerformance(PerformanceMapper.toEntity(coffeeDescriptionDTO.getPerformanceDTO()));
+        if (coffeeDescriptionDTO.getPerformance() != null) {
+            coffeeDescription.setPerformance(PerformanceMapper.toEntity(coffeeDescriptionDTO.getPerformance()));
         }
 
         return coffeeDescription;
@@ -27,7 +27,7 @@ public class CoffeeDescriptionMapper{
         coffeeDescriptionDTO.setId(coffeeDescription.getId());
         coffeeDescriptionDTO.setName(coffeeDescription.getName());
         if (coffeeDescription.getPerformance() != null) {
-            coffeeDescriptionDTO.setPerformanceDTO(PerformanceMapper.toDTO(coffeeDescription.getPerformance()));
+            coffeeDescriptionDTO.setPerformance(PerformanceMapper.toDTO(coffeeDescription.getPerformance()));
         }
 
         return coffeeDescriptionDTO;

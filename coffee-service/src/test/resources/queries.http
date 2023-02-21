@@ -1,0 +1,48 @@
+### adding new coffee
+POST http://localhost:8080/coffee/api/v1/
+Accept: application/json
+Content-Type: application/json
+
+
+{
+  "name": "kolumbia"
+}
+
+
+### get coffee by id
+GET http://localhost:8080/coffee/api/v1/10
+Accept: application/json
+Content-Type: application/json
+
+### adding new coffee with complex body
+POST http://localhost:8080/coffee/api/v1/
+Accept: application/json
+Content-Type: application/json
+
+
+{
+  "name": "kolumbia",
+  "coffeeDescriptions": [
+    {
+      "id": 7,
+      "name": "taste",
+      "description": "bitter"
+    }
+  ]
+}
+
+### adding new coffeeDescription with complex body
+POST http://localhost:8080/coffee/api/v1/description
+Accept: application/json
+Content-Type: application/json
+
+
+{
+  "name": "taste",
+  "description": "bitter taste"
+}
+
+### get coffeeDescription by id
+GET http://localhost:8080/coffee/api/v1/description/7
+Accept: application/json
+Content-Type: application/json

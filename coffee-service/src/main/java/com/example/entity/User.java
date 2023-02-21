@@ -5,25 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
+@Table(name = "usr")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Coffee {
+@AllArgsConstructor
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
-
-    @OneToMany
-    private List<CoffeeDescription> coffeeDescriptions = new ArrayList<>();
-
-    @ManyToOne
-    private User author;
+    private String username;
 
 }

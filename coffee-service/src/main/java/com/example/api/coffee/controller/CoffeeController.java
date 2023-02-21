@@ -2,31 +2,46 @@ package com.example.api.coffee.controller;
 
 import com.example.api.coffee.service.CoffeeService;
 import com.example.dto.CoffeeDTO;
+import com.example.jsonviews.CoffeeJSONView;
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/coffee")
+@RequestMapping("/")
+@Slf4j
 public class CoffeeController {
 
     @Autowired
     private CoffeeService coffeeService;
 
-    /*@PostMapping
+    @PostMapping
+    @JsonView(CoffeeJSONView.Main.class)
     public ResponseEntity<CoffeeDTO> addNewCoffee(
             @RequestBody CoffeeDTO coffeeDTO
     ) {
         CoffeeDTO savedCoffeeDTO = coffeeService.addNewCoffee(coffeeDTO);
-        return ResponseEntity.ok(savedCoffeeDTO);
+
+        log.info("Saved new coffeeDTO: {{}}", savedCoffeeDTO);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCoffeeDTO);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<CoffeeDTO>> getAllCoffees() {
-        List<CoffeeDTO> coffeesDTO = coffeeService.getAllCoffees();
-        return ResponseEntity.ok(coffeesDTO);
-    }*/
+    @GetMapping("/{coffeeId}")
+    @JsonView(CoffeeJSONView.Full.class)
+    public ResponseEntity<CoffeeDTO> getFullInfo(
+            @PathVariable Long coffeeId
+    ) {
+        CoffeeDTO coffeeDTO = coffeeService.getCoffeeById(coffeeId);
+
+        log.info("An attempt to get coffeeDTO: {{}}", coffeeDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(coffeeDTO);
+    }
 
 }

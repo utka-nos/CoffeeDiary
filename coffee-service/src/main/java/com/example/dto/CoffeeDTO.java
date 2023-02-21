@@ -1,5 +1,7 @@
 package com.example.dto;
 
+import com.example.jsonviews.CoffeeJSONView;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +14,15 @@ import java.util.List;
 @NoArgsConstructor
 public class CoffeeDTO {
 
+    @JsonView(CoffeeJSONView.Main.class)
     private Long id;
 
+    @JsonView(CoffeeJSONView.Main.class)
     private String name;
 
+    @JsonView(CoffeeJSONView.Full.class)
     private List<CoffeeDescriptionDTO> coffeeDescriptions = new ArrayList<>();
+
+    @JsonView(CoffeeJSONView.Short.class)
+    private UserDTO author;
 }

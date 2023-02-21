@@ -32,8 +32,8 @@ public class CoffeeMapperTest {
 
     @Test
     public void onlySimpleFieldsValidTest() {
-        Coffee coffee = new Coffee(2L, "kolumbia", new ArrayList<>());
-        CoffeeDTO coffeeDTO = new CoffeeDTO(2L, "kolumbia", new ArrayList<>());
+        Coffee coffee = new Coffee(2L, "kolumbia", new ArrayList<>(), null);
+        CoffeeDTO coffeeDTO = new CoffeeDTO(2L, "kolumbia", new ArrayList<>(), null);
 
         Assertions.assertEquals(coffee, CoffeeMapper.toEntity(coffeeDTO));
         Assertions.assertEquals(coffeeDTO, CoffeeMapper.toDTO(coffee));
@@ -45,13 +45,15 @@ public class CoffeeMapperTest {
         Coffee coffee = new Coffee(
                 1L,
                 "brazil",
-                List.of(coffeeDescription0, coffeeDescription1, coffeeDescription2, coffeeDescription3)
+                List.of(coffeeDescription0, coffeeDescription1, coffeeDescription2, coffeeDescription3),
+                null
         );
 
         CoffeeDTO coffeeDTO = new CoffeeDTO(
                 1L,
                 "brazil",
-                List.of(coffeeDescriptionDTO0, coffeeDescriptionDTO1, coffeeDescriptionDTO2, coffeeDescriptionDTO3)
+                List.of(coffeeDescriptionDTO0, coffeeDescriptionDTO1, coffeeDescriptionDTO2, coffeeDescriptionDTO3),
+                null
         );
 
         Assertions.assertEquals(coffee, CoffeeMapper.toEntity(coffeeDTO));

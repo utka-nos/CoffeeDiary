@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///C:/Users/dimik/IdeaProjects/coffee-book/configs/
+      #git:
+        #  uri: file:///C:/Users/dimik/IdeaProjects/coffee-book/configs/
+        #  default-label: master

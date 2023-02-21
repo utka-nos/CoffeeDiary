@@ -1,39 +1,42 @@
 package com.example.api.coffee.service;
 
+import com.example.api.coffeeDescription.service.CoffeeDescriptionService;
 import com.example.dto.CoffeeDTO;
 import com.example.entity.Coffee;
+import com.example.exceptions.CoffeeNotFoundException;
 import com.example.mapper.CoffeeMapper;
 import com.example.repo.CoffeeRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-@Component
+@Service
+@Slf4j
 public class CoffeeService {
 
     @Autowired
     private CoffeeRepo coffeeRepo;
 
-    /*@Transactional(isolation = Isolation.SERIALIZABLE)
+    @Autowired
+    private CoffeeDescriptionService coffeeDescriptionService;
+
+
     public CoffeeDTO addNewCoffee(CoffeeDTO coffeeDTO) {
 
-        //Coffee coffee = CoffeeMapper.toEntity(coffeeDTO);
-        //Coffee savedCoffee = coffeeRepo.save(coffee);
+        Coffee savedCoffee = coffeeRepo.save(CoffeeMapper.toEntity(coffeeDTO));
 
-        //return CoffeeMapper.toDTO(savedCoffee);
-    }*/
+        log.info("saved coffee: {{}}", savedCoffee);
 
-    /*public List<CoffeeDTO> getAllCoffees() {
+        return CoffeeMapper.toDTO(savedCoffee);
+    }
 
-        List<Coffee> allCoffees = coffeeRepo.findAll();
+    public CoffeeDTO getCoffeeById(Long coffeeId) {
 
-        return allCoffees.stream()
-                //.map(CoffeeMapper::toDTO)
-                //.collect(Collectors.toList());
-    }*/
+        Coffee coffee = coffeeRepo.findById(coffeeId).orElseThrow(CoffeeNotFoundException::new);
 
+        log.info("Нашлась запись о кофе: {{}}", coffee);
+
+        return CoffeeMapper.toDTO(coffee);
+    }
 }
