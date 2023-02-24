@@ -14,21 +14,21 @@ import java.util.List;
 
 public class CoffeeMapperTest {
 
-    Performance perf1 = new Performance(1L);
-    Performance perf2 = new Performance(2L);
+    Performance perf1 = new Performance(1L, "scale");
+    Performance perf2 = new Performance(2L, "percent");
 
     CoffeeDescription coffeeDescription0 = new CoffeeDescription();
-    CoffeeDescription coffeeDescription1 = new CoffeeDescription(1L, "taste", "good", perf1);
-    CoffeeDescription coffeeDescription2 = new CoffeeDescription(2L, "bitter", "so-so", perf2);
-    CoffeeDescription coffeeDescription3 = new CoffeeDescription(3L, "sweet", "", perf1);
+    CoffeeDescription coffeeDescription1 = new CoffeeDescription(1L, "taste", "good", "10",perf1);
+    CoffeeDescription coffeeDescription2 = new CoffeeDescription(2L, "bitter", "so-so", "50" ,perf2);
+    CoffeeDescription coffeeDescription3 = new CoffeeDescription(3L, "sweet", "", "10" ,perf1);
 
-    PerformanceDTO perfDTO1 = new PerformanceDTO(1L);
-    PerformanceDTO perfDTO2 = new PerformanceDTO(2L);
+    PerformanceDTO perfDTO1 = new PerformanceDTO(1L, "scale");
+    PerformanceDTO perfDTO2 = new PerformanceDTO(2L, "percent");
 
     CoffeeDescriptionDTO coffeeDescriptionDTO0 = new CoffeeDescriptionDTO();
-    CoffeeDescriptionDTO coffeeDescriptionDTO1 = new CoffeeDescriptionDTO(1L, "taste", "good", perfDTO1);
-    CoffeeDescriptionDTO coffeeDescriptionDTO2 = new CoffeeDescriptionDTO(2L, "bitter", "so-so", perfDTO2);
-    CoffeeDescriptionDTO coffeeDescriptionDTO3 = new CoffeeDescriptionDTO(3L, "sweet", "", perfDTO1);
+    CoffeeDescriptionDTO coffeeDescriptionDTO1 = new CoffeeDescriptionDTO(1L, "taste", "good", "10", perfDTO1);
+    CoffeeDescriptionDTO coffeeDescriptionDTO2 = new CoffeeDescriptionDTO(2L, "bitter", "so-so", "50", perfDTO2);
+    CoffeeDescriptionDTO coffeeDescriptionDTO3 = new CoffeeDescriptionDTO(3L, "sweet", "", "10" ,perfDTO1);
 
     @Test
     public void onlySimpleFieldsValidTest() {

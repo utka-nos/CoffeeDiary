@@ -1,13 +1,10 @@
 package com.example.dto;
 
-import com.example.entity.Performance;
 import com.example.jsonviews.CoffeeJSONView;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.ManyToOne;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +17,8 @@ public class CoffeeDescriptionDTO {
     private String name;
 
     private String description;
+
+    private String value;
 
     private PerformanceDTO performance;
 

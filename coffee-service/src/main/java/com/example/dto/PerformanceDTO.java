@@ -11,4 +11,6 @@ public class PerformanceDTO {
 
     private Long id;
 
+    private String name;
+
 }

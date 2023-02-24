@@ -20,6 +20,8 @@ public class CoffeeDescription {
 
     private String description;
 
+    private String value;
+
     @ManyToOne
     private Performance performance;
 

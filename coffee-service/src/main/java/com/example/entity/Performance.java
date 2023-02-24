@@ -19,4 +19,6 @@ public class Performance {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
+
 }

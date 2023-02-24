@@ -9,6 +9,7 @@ public class PerformanceMapper {
         PerformanceDTO performanceDTO = new PerformanceDTO();
 
         performanceDTO.setId(performance.getId());
+        performanceDTO.setName(performance.getName());
 
         return performanceDTO;
     }
@@ -17,6 +18,7 @@ public class PerformanceMapper {
         Performance performance = new Performance();
 
         performance.setId(performanceDTO.getId());
+        performance.setName(performanceDTO.getName());
 
         return performance;
     }
