@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="GatewayApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <module name="gateway" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.GatewayApp" />
+  <configuration default="false" name="EurekaApp-dev" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="eureka" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.EurekaApp" />
     <option name="ACTIVE_PROFILES" value="DEV" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <additionalParameters>
@@ -14,6 +14,11 @@
         <option name="enabled" value="true" />
         <option name="name" value="EUREKA_PORT" />
         <option name="value" value="8761" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="INSTANCE_HOST" />
+        <option name="value" value="localhost" />
       </param>
     </additionalParameters>
     <method v="2">

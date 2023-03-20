@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="EurekaApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="EurekaApp-prom" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="eureka" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.EurekaApp" />
-    <option name="ACTIVE_PROFILES" value="DEV" />
+    <option name="ACTIVE_PROFILES" value="prom" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <additionalParameters>
       <param>

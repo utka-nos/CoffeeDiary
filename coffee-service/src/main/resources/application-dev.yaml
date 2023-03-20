@@ -1,0 +1,29 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: coffee-app
+  datasource:
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/coffee-book
+  jpa:
+    hibernate:
+      ddl-auto: update
+  cloud:
+    config:
+      enabled: false
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5
+    region: default
+    service-url:
+      default: http://${EUREKA_HOSTNAME}:${EUREKA_PORT}
+
+logging:
+  level:
+    root: info

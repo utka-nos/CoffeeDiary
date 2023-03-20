@@ -1,0 +1,54 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="UserApp-prom" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="user-service" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.example.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.UserApp" />
+    <option name="ACTIVE_PROFILES" value="prom" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="DB_PASS" />
+        <option name="value" value="1234qwer" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="DB_USER" />
+        <option name="value" value="dima" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="USER_APP_PORT" />
+        <option name="value" value="8088" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="DB_HOST" />
+        <option name="value" value="localhost" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="DB_PORT" />
+        <option name="value" value="5433" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="EUREKA_HOSTNAME" />
+        <option name="value" value="localhost" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="EUREKA_PORT" />
+        <option name="value" value="8761" />
+      </param>
+    </additionalParameters>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

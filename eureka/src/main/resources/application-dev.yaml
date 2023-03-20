@@ -1,0 +1,18 @@
+server:
+  port: ${EUREKA_PORT}
+
+eureka:
+  instance:
+    hostname: ${INSTANCE_HOST}
+  client:
+    service-url:
+      default: http://${EUREKA_HOST}:${EUREKA_PORT}
+    fetch-registry: false
+    register-with-eureka: false
+
+spring:
+  application:
+    name: eureka-app
+  cloud:
+    config:
+      enabled: false

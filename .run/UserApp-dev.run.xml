@@ -1,8 +1,14 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CoffeeApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <module name="coffee-service" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.CoffeeServiceApp" />
-    <option name="ACTIVE_PROFILES" value="DEV" />
+  <configuration default="false" name="UserApp-dev" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="user-service" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.example.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.UserApp" />
+    <option name="ACTIVE_PROFILES" value="dev" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <additionalParameters>
       <param>
@@ -17,8 +23,13 @@
       </param>
       <param>
         <option name="enabled" value="true" />
+        <option name="name" value="USER_APP_PORT" />
+        <option name="value" value="8088" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
         <option name="name" value="DB_HOST" />
-        <option name="value" value="192.168.0.104" />
+        <option name="value" value="localhost" />
       </param>
       <param>
         <option name="enabled" value="true" />
@@ -27,8 +38,8 @@
       </param>
       <param>
         <option name="enabled" value="true" />
-        <option name="name" value="EUREKA_HOST" />
-        <option name="value" value="127.0.0.1" />
+        <option name="name" value="EUREKA_HOSTNAME" />
+        <option name="value" value="localhost" />
       </param>
       <param>
         <option name="enabled" value="true" />
