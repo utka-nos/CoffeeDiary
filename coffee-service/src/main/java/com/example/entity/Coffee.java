@@ -23,7 +23,6 @@ public class Coffee {
     @OneToMany
     private List<CoffeeDescription> coffeeDescriptions = new ArrayList<>();
 
-    @ManyToOne
-    private User author;
+    private Long userId;
 
 }

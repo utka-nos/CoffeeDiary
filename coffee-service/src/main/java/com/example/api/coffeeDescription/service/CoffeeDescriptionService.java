@@ -9,6 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Service
 @Slf4j
 public class CoffeeDescriptionService {
@@ -16,10 +20,21 @@ public class CoffeeDescriptionService {
     @Autowired
     private CoffeeDescriptionRepo coffeeDescriptionRepo;
 
+    /** Добавление нового coffeeDescription
+     *
+     * @param coffeeDescriptionDTO - новый coffeeDescriptionDTO переданный от пользователя
+     * @return - сохраненная версия coffeeDescription (с присвоенным id и прочими полями),
+     * конвертированная в DTO
+     */
     public CoffeeDescriptionDTO saveCoffeeDescription(CoffeeDescriptionDTO coffeeDescriptionDTO) {
         return saveCoffeeDescription(CoffeeDescriptionMapper.toEntity(coffeeDescriptionDTO));
     }
 
+    /** Добавление нового coffeeDescription
+     *
+     * @param coffeeDescription - новый coffeeDescription переданный от пользователя
+     * @return - сохраненная версия coffeeDescription (с присвоенным id и прочими полями)
+     */
     public CoffeeDescriptionDTO saveCoffeeDescription(CoffeeDescription coffeeDescription) {
         CoffeeDescription savedCoffeeDescription = coffeeDescriptionRepo.save(coffeeDescription);
 
@@ -28,7 +43,13 @@ public class CoffeeDescriptionService {
         return CoffeeDescriptionMapper.toDTO(savedCoffeeDescription);
     }
 
-    public CoffeeDescriptionDTO getDescriptionById(Long descriptionId) {
+    /** Получение CoffeeDescription по его id
+     *
+     * @param descriptionId - id от coffeeDescription
+     * @return - Получаем нужный coffeeDescription
+     * @throws CoffeeDescriptionNotFoundException - показывает, что coffeeDescription с таким id не найден
+     */
+    public CoffeeDescriptionDTO getDescriptionById(Long descriptionId) throws CoffeeDescriptionNotFoundException{
 
         CoffeeDescription coffeeDescription =
                 coffeeDescriptionRepo.findById(descriptionId).orElseThrow(CoffeeDescriptionNotFoundException::new);
@@ -36,5 +57,17 @@ public class CoffeeDescriptionService {
         log.info("Attempt to get coffeeDescription from CoffeeDescriptionService: {{}}", coffeeDescription);
 
         return CoffeeDescriptionMapper.toDTO(coffeeDescription);
+    }
+
+    /** Получение списка всех CoffeeDescription
+     *
+     * @return - список всех coffeeDescription
+     */
+    public List<CoffeeDescriptionDTO> getAllCoffeeDescriptions() {
+        List<CoffeeDescription> allCoffeeDescriptions = coffeeDescriptionRepo.findAll();
+        return coffeeDescriptionRepo.findAll()
+                .stream()
+                .map(CoffeeDescriptionMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
