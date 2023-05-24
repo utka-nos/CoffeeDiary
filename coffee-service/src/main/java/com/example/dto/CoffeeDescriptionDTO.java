@@ -1,5 +1,6 @@
 package com.example.dto;
 
+import com.example.jsonviews.CoffeeDescriptionJSONView;
 import com.example.jsonviews.CoffeeJSONView;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
@@ -11,15 +12,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CoffeeDescriptionDTO {
 
+    @JsonView(CoffeeDescriptionJSONView.Main.class)
     private Long id;
 
-    @JsonView(CoffeeJSONView.Main.class)
+    @JsonView(CoffeeDescriptionJSONView.Main.class)
     private String name;
 
+    @JsonView(CoffeeDescriptionJSONView.Full.class)
     private String description;
 
+    @JsonView(CoffeeDescriptionJSONView.Main.class)
     private String value;
 
+    @JsonView(CoffeeDescriptionJSONView.Full.class)
     private PerformanceDTO performance;
 
 }

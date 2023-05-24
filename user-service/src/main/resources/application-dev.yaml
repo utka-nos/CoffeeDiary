@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: user-app
+    name: user
   datasource:
     username: ${DB_USER}
     password: ${DB_PASS}

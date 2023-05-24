@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/coffee")
 @Slf4j
 public class CoffeeController {
 
@@ -42,6 +42,16 @@ public class CoffeeController {
         log.info("An attempt to get coffeeDTO: {{}}", coffeeDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(coffeeDTO);
+    }
+
+    @GetMapping("/all")
+    @JsonView(CoffeeJSONView.Short.class)
+    public ResponseEntity<List<CoffeeDTO>> getAllCoffees() {
+        List<CoffeeDTO> coffeeDTOList = coffeeService.getAllCoffees();
+
+        log.info("Got all coffees. Total coffees: {{}}", coffeeDTOList.size());
+
+        return ResponseEntity.ok(coffeeDTOList);
     }
 
 }

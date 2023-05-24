@@ -2,6 +2,8 @@ package com.example.api.coffeeDescription.controller;
 
 import com.example.api.coffeeDescription.service.CoffeeDescriptionService;
 import com.example.dto.CoffeeDescriptionDTO;
+import com.example.jsonviews.CoffeeDescriptionJSONView;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ public class CoffeeDescriptionController {
      * @return - Возвращает сохраненный в бд coffeeDescription
      */
     @PostMapping
+    @JsonView(CoffeeDescriptionJSONView.Main.class)
     public ResponseEntity<CoffeeDescriptionDTO> addNewCoffeeDescription(
             @RequestBody CoffeeDescriptionDTO coffeeDescriptionDTO
     ) {
@@ -41,6 +44,7 @@ public class CoffeeDescriptionController {
      * @return - полную информацию по coffeeDescription
      */
     @GetMapping("/{descriptionId}")
+    @JsonView(CoffeeDescriptionJSONView.Full.class)
     public ResponseEntity<CoffeeDescriptionDTO> getCoffeeDescriptionDTOById(
             @PathVariable Long descriptionId
     ) {
@@ -56,6 +60,7 @@ public class CoffeeDescriptionController {
      * @return - список всех доступных coffeeDescription
      */
     @GetMapping("/all")
+    @JsonView(CoffeeDescriptionJSONView.Main.class)
     public ResponseEntity<List<CoffeeDescriptionDTO>> getAllCoffeeDescription(){
         log.debug("Getting all coffeeDescription");
 

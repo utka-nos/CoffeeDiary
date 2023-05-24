@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: coffee-app
+    name: coffee
   datasource:
     username: ${DB_USER}
     password: ${DB_PASS}

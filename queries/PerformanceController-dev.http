@@ -1,0 +1,15 @@
+### get all performances
+GET localhost:8080/coffee/api/v1/performance/all
+Accept: application/json
+Content-Type: application/json
+
+
+### add new performance
+POST localhost:8080/coffee/api/v1/performance
+Accept: application/json
+Content-Type: application/json
+
+
+{
+  "name": "text2"
+}

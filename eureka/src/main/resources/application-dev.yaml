@@ -12,7 +12,7 @@ eureka:
 
 spring:
   application:
-    name: eureka-app
+    name: eureka
   cloud:
     config:
       enabled: false

@@ -14,15 +14,15 @@ import java.util.List;
 @NoArgsConstructor
 public class CoffeeDTO {
 
-    @JsonView(CoffeeJSONView.Main.class)
+    @JsonView(CoffeeJSONView.Short.class)
     private Long id;
 
-    @JsonView(CoffeeJSONView.Main.class)
+    @JsonView(CoffeeJSONView.Short.class)
     private String name;
 
     @JsonView(CoffeeJSONView.Full.class)
     private List<CoffeeDescriptionDTO> coffeeDescriptions = new ArrayList<>();
 
-    @JsonView(CoffeeJSONView.Short.class)
+    @JsonView(CoffeeJSONView.Main.class)
     private UserDTO author;
 }

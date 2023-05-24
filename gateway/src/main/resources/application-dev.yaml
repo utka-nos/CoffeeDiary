@@ -2,14 +2,14 @@ server:
   port: 8080
 spring:
   application:
-    name: gateway-app
+    name: gateway
   cloud:
     gateway:
       discovery:
         locator:
           # Включаем перенаправление для коректной работы api gateway
           enabled: true
-          # Название сервиса бует НЕ регистрозавсимым
+          # Название сервиса будет НЕ регистрозавсимым
           lower-case-service-id: true
     config:
       enabled: false

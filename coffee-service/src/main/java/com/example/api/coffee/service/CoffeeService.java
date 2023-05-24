@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 public class CoffeeService {
@@ -38,5 +41,16 @@ public class CoffeeService {
         log.info("Нашлась запись о кофе: {{}}", coffee);
 
         return CoffeeMapper.toDTO(coffee);
+    }
+
+    public List<CoffeeDTO> getAllCoffees() {
+
+        List<Coffee> allCoffees = coffeeRepo.findAll();
+
+        log.info("Попытка получить список всех coffee. Получено записей: {{}}", allCoffees.size());
+
+        return allCoffees.stream()
+                .map(CoffeeMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

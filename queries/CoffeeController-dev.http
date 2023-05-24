@@ -1,0 +1,20 @@
+#All coffees
+GET localhost:8080/coffee/api/v1/coffee/all
+
+
+###
+# Add New Coffee
+POST localhost:8080/coffee/api/v1/coffee
+Accept: application/json
+Content-Type: application/json
+
+
+{
+  "name": "gawanna2"
+}
+
+###
+# Get Coffee
+GET localhost:8080/coffee/api/v1/coffee/2
+Accept: application/json
+Content-Type: application/json
