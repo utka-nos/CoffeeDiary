@@ -18,7 +18,7 @@
       <param>
         <option name="enabled" value="true" />
         <option name="name" value="DB_HOST" />
-        <option name="value" value="192.168.0.104" />
+        <option name="value" value="127.0.0.1" />
       </param>
       <param>
         <option name="enabled" value="true" />
