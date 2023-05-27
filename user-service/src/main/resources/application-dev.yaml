@@ -17,6 +17,10 @@ spring:
   cloud:
     config:
       enabled: false
+  security:
+    oauth2:
+      authorization-server:
+        issuer-url: http://localhost:8088
 
 eureka:
   client:
@@ -27,4 +31,5 @@ eureka:
 
 logging:
   level:
+    org.springframework.security: trace
     root: info
