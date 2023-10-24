@@ -17,6 +17,11 @@ spring:
   cloud:
     config:
       enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8082/api/v1/oauth2/jwks
 
 eureka:
   client:
