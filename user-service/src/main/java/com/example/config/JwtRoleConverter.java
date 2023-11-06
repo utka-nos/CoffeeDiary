@@ -10,6 +10,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ *  Конвертер для конвертирования ролей из claims jwt токена в нормальные роли Role с последующей
+ *  возможностью реализации авторизации по этим ролям
+ */
 public class JwtRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     @Override

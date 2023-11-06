@@ -116,6 +116,10 @@ public class AuthorizationServerConfig {
         return new BCryptPasswordEncoder(5);
     }
 
+    /**
+     * кастомизатор токена, который добавляет в токен роли
+     * @return кастомизированный контекст токена
+     */
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenRolesCustomizer() {
         return context -> {
