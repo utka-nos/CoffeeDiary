@@ -19,9 +19,10 @@ spring:
       enabled: false
   security:
     oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8082/api/v1/oauth2/jwks
+      authorization-server:
+        issuer-url: http://localhost:${USER_APP_PORT}
+        introspection-endpoint: /oauth2/token-info
+
 
 eureka:
   client:
@@ -33,3 +34,4 @@ eureka:
 logging:
   level:
     root: info
+    org.springframework.security: trace

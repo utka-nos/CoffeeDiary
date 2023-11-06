@@ -1,6 +1,5 @@
 package com.example.model;
 
-import jakarta.persistence.Entity;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
