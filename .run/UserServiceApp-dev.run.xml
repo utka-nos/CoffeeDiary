@@ -1,0 +1,25 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="UserServiceApp-dev" type="Application" factoryName="Application">
+    <envs>
+      <env name="DB_HOST" value="127.0.0.1" />
+      <env name="DB_PASS" value="1234qwer" />
+      <env name="DB_PORT" value="5432" />
+      <env name="DB_USER" value="admin" />
+      <env name="spring_profiles_active" value="DEV" />
+      <env name="USER_APP_PORT" value="8082" />
+      <env name="EUREKA_HOSTNAME" value="127.0.0.1" />
+      <env name="EUREKA_PORT" value="8761" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.example.UserApp" />
+    <module name="user-service" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.example.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

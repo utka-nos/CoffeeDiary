@@ -1,5 +1,5 @@
 server:
-  port: ${USER_APP_PORT}
+  port: 8082
   servlet:
     context-path: /api/v1
 
@@ -7,10 +7,9 @@ spring:
   application:
     name: user
   datasource:
-    username: ${DB_USER}
-    password: ${DB_PASS}
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/coffee-book
-    driver-class-name: org.postgresql.Driver
+    username: admin
+    password: 1234qwer
+    url: jdbc:h2:mem:test
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,7 +19,7 @@ spring:
   security:
     oauth2:
       authorization-server:
-        issuer-url: http://localhost:${USER_APP_PORT}
+        issuer-url: http://localhost:8082
         introspection-endpoint: /oauth2/token-info
 
 
@@ -28,8 +27,9 @@ eureka:
   client:
     registry-fetch-interval-seconds: 5
     region: default
+    enabled: false
     service-url:
-      default: http://${EUREKA_HOSTNAME}:${EUREKA_PORT}
+      default: http://127.0.0.1:8761
 
 logging:
   level:
