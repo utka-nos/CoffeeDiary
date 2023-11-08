@@ -29,6 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
     }
@@ -37,7 +38,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @JsonView(UserJsonView.FullInfo.class)
     public ResponseEntity<List<UserDTO>> getAllUsers(@AuthenticationPrincipal Jwt jwt) {
-
         List<UserDTO> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }

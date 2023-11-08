@@ -4,6 +4,7 @@ import com.example.model.User;
 import com.example.model.UserDTO;
 import com.example.model.UserMapper;
 import com.example.repo.UserRepo;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@NoArgsConstructor
 public class UserService implements UserDetailsService {
 
     @Autowired

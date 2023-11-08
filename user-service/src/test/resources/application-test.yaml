@@ -1,0 +1,37 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: user
+  datasource:
+    username: admin
+    password: 1234qwer
+    url: jdbc:h2:mem:test
+  jpa:
+    hibernate:
+      ddl-auto: update
+  cloud:
+    config:
+      enabled: false
+  security:
+    oauth2:
+      authorization-server:
+        issuer-url: http://localhost:8082
+        introspection-endpoint: /oauth2/token-info
+
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5
+    region: default
+    enabled: false
+    service-url:
+      default: http://127.0.0.1:8761
+
+logging:
+  level:
+    root: info
+    org.springframework.security: trace
