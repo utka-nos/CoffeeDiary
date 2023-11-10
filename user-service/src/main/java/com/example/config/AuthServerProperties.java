@@ -10,6 +10,5 @@ import org.springframework.context.annotation.Configuration;
 public class AuthServerProperties {
 
     private String issuerUrl;
-    private String introspectionEndpoint;
 
 }

@@ -21,7 +21,6 @@ spring:
     oauth2:
       authorization-server:
         issuer-url: http://localhost:${USER_APP_PORT}
-        introspection-endpoint: /oauth2/token-info
 
 
 eureka:

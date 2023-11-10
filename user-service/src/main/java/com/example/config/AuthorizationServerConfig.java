@@ -102,7 +102,6 @@ public class AuthorizationServerConfig {
     public AuthorizationServerSettings authorizationServerSettings() {
         return AuthorizationServerSettings.builder()
                 .issuer(authServerProperties.getIssuerUrl())
-                .tokenIntrospectionEndpoint(authServerProperties.getIntrospectionEndpoint())
                 .build();
     }
 
