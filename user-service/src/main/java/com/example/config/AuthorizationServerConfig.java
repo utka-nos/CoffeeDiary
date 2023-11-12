@@ -12,6 +12,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -57,6 +58,7 @@ public class AuthorizationServerConfig {
                 exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
         httpSecurity.oauth2ResourceServer((resourceServer) ->
                 resourceServer.jwt(Customizer.withDefaults()));
+        httpSecurity.cors(Customizer.withDefaults());
         return httpSecurity.build();
     }
 
@@ -75,6 +77,8 @@ public class AuthorizationServerConfig {
                         .redirectUri("http://localhost:8082/api/v1/test")
                         .redirectUri("http://localhost:8082/api/v1/authorized")
                         .redirectUri("https://oauth.pstmn.io/v1/callback")
+                        .redirectUri("http://localhost:3000/authorize")
+                        .redirectUri("http://localhost:3000/home")
                         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                         //.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)

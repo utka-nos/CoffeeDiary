@@ -2,3 +2,4 @@
 .idea
 coffee-book.iml
 **/*.iml
+**/node_modules
