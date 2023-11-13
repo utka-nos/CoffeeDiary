@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-export function AuthorizePage({setAccessToken}) {
+export function AuthorizePage() {
 
   const [searchParams] = useSearchParams();
 
@@ -12,10 +12,7 @@ export function AuthorizePage({setAccessToken}) {
   };
 
   useEffect(() => {
-    console.log(searchParams.get("code"))
     requestBody.code = searchParams.get("code")
-    console.log(requestBody)
-    console.log(JSON.stringify(requestBody))
     fetch("http://localhost:8082/api/v1/oauth2/token", {
       method: "POST",
       headers: {
@@ -26,9 +23,9 @@ export function AuthorizePage({setAccessToken}) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        setAccessToken(data.access_token);
         localStorage.setItem("jwt_token", data.access_token)
+        localStorage.setItem("id_token", data.id_token)
+        window.location.assign("http://localhost:3000/home")
       })
       .catch(error => console.error(error));
   }, [])

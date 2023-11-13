@@ -3,36 +3,66 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
-export function Header({accessToken}) {
+export function Header() {
 
     const navigate = useNavigate();
+    const [isAdmin, setIsAdmin] = useState(false)
+    const [authorized, setAuthorized] = useState(false)
+
+    useEffect(() => {
+      if(localStorage.getItem("jwt_token") !== "") {
+        setAuthorized(true);
+        setIsAdmin(checkIsAdmin);
+      } else {
+        setAuthorized(false);
+        setIsAdmin(false);
+      }
+    }, []);
+
+    const checkIsAdmin = () => {
+      fetch("http://localhost:8082/api/v1/users/authorities", {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("jwt_token")
+        }
+      })
+        .then(response => {
+          if (response.status !== 200) {
+            setIsAdmin(false);
+            setAuthorized(false);
+            localStorage.setItem("id_token", "");
+            localStorage.setItem("jwt_token", "")
+          }
+          return response.json();
+        })
+        .then(authorities => {
+          setIsAdmin(authorities.includes("ADMIN"))
+        })
+        .catch (err => console.error(err));
+    }
 
     const onClickLogin = () => {
-      console.log("login button click!");
-      console.log("accesstoken= " + accessToken)
-      console.log("token in localstorage: " + localStorage.getItem("jwt_token"))
       navigate("/login")
     }
 
     const onCLickLogout = () => {
-      fetch("http://localhost:8082/api/v1/logout")
-      .then(response => {
-        console.log(response)
-        localStorage.setItem("jwt_token", "")
-      })
+      window.location.assign("http://localhost:8082/api/v1/logout");
+      localStorage.setItem("jwt_token", "");
+      localStorage.setItem("id_token", "");
     }
 
     const isActive = (path) => {
       return path === window.location.pathname
     }
 
-    const btn = () => {
-      if (localStorage.getItem("jwt_token") === "") return (
-        <div><Button variant="outline-success" className="d-flex" onClick={onClickLogin}>login</Button></div>
+    const btnLoginLogout = () => {
+      if (!authorized) return (
+        <Button variant="outline-success" className="d-flex" onClick={onClickLogin}>login</Button>
       )
       else return (
-        <div><Button variant="outline-success" className="d-flex" onClick={onCLickLogout}>logout</Button></div>
+        <Button variant="outline-success" className="d-flex" onClick={onCLickLogout}>logout</Button>
       )}
 
     return (
@@ -46,11 +76,13 @@ export function Header({accessToken}) {
                 <Nav.Link href="/home"  active={isActive("/home")}>home</Nav.Link>
                 {/* users page */}
                 <Nav.Link href="/users" active={isActive("/users")}>users</Nav.Link>
+                {/* profile page */}
+                <Nav.Link href="/profile" active={isActive("/profile")} hidden={!authorized}>profile</Nav.Link>
                 {/* admin page */}
-                <Nav.Link href="/admin" active={isActive("/admin")}>admin</Nav.Link>
+                <Nav.Link href="/admin" active={isActive("/admin")} hidden={!isAdmin}>admin</Nav.Link>
               </Nav>
 
-              {btn()}
+              {btnLoginLogout()}
 
             </Navbar.Collapse>
           </Container>

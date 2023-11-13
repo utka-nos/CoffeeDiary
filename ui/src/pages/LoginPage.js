@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button';
 export function LoginPage() {
 
   const onClickLoginButton = () => {
-    console.log("login button click on login component")
     window.location.assign('http://localhost:8082/api/v1/oauth2/authorize?response_type=code&client_id=client&state=state&scope=profile%20openid%20ADMIN%3Aread%20ADMIN%3Awrite&redirect_uri=http://localhost:3000/authorize&continue')
   }
 
