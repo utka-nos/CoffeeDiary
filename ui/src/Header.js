@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
-export function Header() {
+export function Header({setAuthorities}, {authorities}) {
 
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false)
@@ -37,8 +37,9 @@ export function Header() {
           }
           return response.json();
         })
-        .then(authorities => {
-          setIsAdmin(authorities.includes("ADMIN"))
+        .then(authoritiesFromServer => {
+          setAuthorities(authoritiesFromServer)
+          setIsAdmin(authoritiesFromServer.includes("ADMIN"))
         })
         .catch (err => console.error(err));
     }

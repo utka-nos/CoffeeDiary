@@ -47,7 +47,7 @@ public class UserController {
 
     @GetMapping("/user-info")
     @PreAuthorize("hasAuthority('USER')")
-    @JsonView(UserJsonView.MainInfo.class)
+    @JsonView(UserJsonView.FullInfo.class)
     public ResponseEntity<UserDTO> getUserInfoByJwt(UserDTO userDTO) {
         return ResponseEntity.ok(userDTO);
     }

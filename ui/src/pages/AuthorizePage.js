@@ -6,7 +6,7 @@ export function AuthorizePage() {
   const [searchParams] = useSearchParams();
 
   const requestBody = {
-    code : "test",
+    code : "",
     grant_type : "authorization_code",
     redirect_uri : "http://localhost:3000/authorize"
   };
