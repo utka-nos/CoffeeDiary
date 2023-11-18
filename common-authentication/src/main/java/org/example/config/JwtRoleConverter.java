@@ -23,6 +23,6 @@ public class JwtRoleConverter implements Converter<Jwt, Collection<GrantedAuthor
             return new ArrayList<>();
         }
 
-        return roles.stream().map(role -> (GrantedAuthority) () -> role).collect(Collectors.toSet());
+        return roles.stream().map(Role::valueOf).collect(Collectors.toSet());
     }
 }

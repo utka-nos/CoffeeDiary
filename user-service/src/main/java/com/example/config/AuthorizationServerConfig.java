@@ -39,8 +39,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Configuration(proxyBeanMethods = false)
-@EnableWebSecurity(debug = true)
-@EnableMethodSecurity(securedEnabled = true)
 public class AuthorizationServerConfig {
 
     @Autowired

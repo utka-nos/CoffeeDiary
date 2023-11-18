@@ -1,10 +1,10 @@
 package com.example.api;
 
-import com.example.model.Role;
 import com.example.model.UserDTO;
 import com.example.model.UserJsonView;
 import com.example.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.example.config.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

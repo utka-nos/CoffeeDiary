@@ -3,6 +3,7 @@ package com.example.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.config.Role;
 
 import java.util.HashSet;
 import java.util.Set;

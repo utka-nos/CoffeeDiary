@@ -8,6 +8,8 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -17,6 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 @Configuration
+@EnableWebSecurity(debug = true)
+@EnableMethodSecurity(securedEnabled = true)
 public class JwtContext {
 
     @Bean

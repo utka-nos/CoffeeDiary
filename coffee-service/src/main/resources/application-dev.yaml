@@ -30,3 +30,4 @@ eureka:
 logging:
   level:
     root: info
+    org.springframework.security: trace
