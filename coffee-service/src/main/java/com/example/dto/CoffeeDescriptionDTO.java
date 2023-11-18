@@ -1,7 +1,6 @@
 package com.example.dto;
 
 import com.example.jsonviews.CoffeeDescriptionJSONView;
-import com.example.jsonviews.CoffeeJSONView;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;

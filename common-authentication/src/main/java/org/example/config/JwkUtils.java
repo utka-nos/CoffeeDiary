@@ -1,4 +1,4 @@
-package com.example.config;
+package org.example.config;
 
 import com.nimbusds.jose.jwk.RSAKey;
 import lombok.Data;

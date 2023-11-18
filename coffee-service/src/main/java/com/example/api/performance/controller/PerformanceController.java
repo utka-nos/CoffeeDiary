@@ -2,7 +2,6 @@ package com.example.api.performance.controller;
 
 import com.example.api.performance.service.PerformanceService;
 import com.example.dto.PerformanceDTO;
-import com.example.entity.Performance;
 import com.example.jsonviews.PerformanceJSONView;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;

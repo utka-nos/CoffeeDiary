@@ -19,6 +19,7 @@
         <module>gateway</module>
         <module>config-service</module>
         <module>user-service</module>
+        <module>common-authentication</module>
     </modules>
 
     <parent>

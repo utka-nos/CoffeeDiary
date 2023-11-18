@@ -1,5 +1,5 @@
 server:
-  port: ${USER_APP_PORT}
+  port: 8082
   servlet:
     context-path: /api/v1
 
@@ -20,7 +20,7 @@ spring:
   security:
     oauth2:
       authorization-server:
-        issuer-url: http://localhost:${USER_APP_PORT}
+        issuer-url: http://localhost:8082/api/v1
 
 
 eureka:

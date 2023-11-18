@@ -2,7 +2,6 @@ package com.example.api;
 
 import com.example.model.UserDTO;
 import com.example.service.UserService;
-import net.bytebuddy.matcher.ElementMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

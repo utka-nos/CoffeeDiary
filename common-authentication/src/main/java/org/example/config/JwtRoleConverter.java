@@ -1,6 +1,5 @@
-package com.example.config;
+package org.example.config;
 
-import com.example.model.Role;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -24,6 +23,6 @@ public class JwtRoleConverter implements Converter<Jwt, Collection<GrantedAuthor
             return new ArrayList<>();
         }
 
-        return roles.stream().map(Role::valueOf).collect(Collectors.toSet());
+        return roles.stream().map(role -> (GrantedAuthority) () -> role).collect(Collectors.toSet());
     }
 }

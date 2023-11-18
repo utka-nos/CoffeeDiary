@@ -17,6 +17,9 @@ spring:
     config:
       enabled: false
 
+
+
+
 eureka:
   client:
     registry-fetch-interval-seconds: 5
