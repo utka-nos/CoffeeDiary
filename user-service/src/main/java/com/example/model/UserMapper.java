@@ -1,5 +1,7 @@
 package com.example.model;
 
+import com.example.UserDTO;
+
 public class UserMapper {
 
     public static User toEntity(UserDTO userDTO) {

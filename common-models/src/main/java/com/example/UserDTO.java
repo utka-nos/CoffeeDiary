@@ -1,7 +1,9 @@
-package com.example.model;
+package com.example;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,12 +24,14 @@ public class UserDTO implements UserDetails {
     private Long id;
 
     @JsonView(UserJsonView.MainInfo.class)
+    @NotNull(message = "Field username can't be null")
     private String username;
 
     @JsonView(UserJsonView.PasswordInfo.class)
     private String password;
 
     @JsonView(UserJsonView.FullInfo.class)
+    @Email
     private String email;
 
     @JsonView(UserJsonView.FullInfo.class)

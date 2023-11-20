@@ -20,6 +20,7 @@
         <module>config-service</module>
         <module>user-service</module>
         <module>common-authentication</module>
+        <module>common-models</module>
     </modules>
 
     <parent>

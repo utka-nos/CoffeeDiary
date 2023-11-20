@@ -1,15 +1,18 @@
 package com.example.api;
 
-import com.example.model.UserDTO;
-import com.example.model.UserJsonView;
+import com.example.UserDTO;
+import com.example.UserJsonView;
+import com.example.exceptions.ValidationException;
 import com.example.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.validation.Valid;
 import org.example.config.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,10 +27,13 @@ public class UserController {
 
     @PostMapping("/add")
     @JsonView(UserJsonView.MainInfo.class)
-    public ResponseEntity<UserDTO> addNewUser( @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> addNewUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException(bindingResult.getAllErrors().get(0).getDefaultMessage());
+        }
         UserDTO newUserDTO = userService.addNewUser(userDTO);
 
-        return ResponseEntity.ok(newUserDTO);
+        return ResponseEntity.status(201).body(newUserDTO);
     }
 
     @PostMapping("/delete/{id}")

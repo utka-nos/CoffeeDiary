@@ -1,6 +1,6 @@
 package com.example.config;
 
-import com.example.model.UserDTO;
+import com.example.UserDTO;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
