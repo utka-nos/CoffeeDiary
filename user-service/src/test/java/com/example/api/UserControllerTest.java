@@ -95,4 +95,21 @@ class UserControllerTest {
                 .andExpect(status().is(201))
                 .andExpect(content().string("{\"id\":2,\"username\":\"username\"}"));
     }
+
+    @Test
+    @WithAnonymousUser
+    void addNewUserNullUsername() throws Exception {
+        UserDTO userToRequest = new UserDTO();
+
+        userToRequest.setPassword("1234");
+        userToRequest.setEmail("some@email.com");
+
+        String userJson = objectWriter.writeValueAsString(userToRequest);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/users/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson))
+                .andExpect(status().is(400))
+                .andDo(print());
+    }
 }

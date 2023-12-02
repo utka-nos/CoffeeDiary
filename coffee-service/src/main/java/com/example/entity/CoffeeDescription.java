@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "coffee_descriptions")
 public class CoffeeDescription {
 
     @Id
@@ -20,6 +21,7 @@ public class CoffeeDescription {
 
     private String description;
 
+    @Column(name = "`value`")
     private String value;
 
     @ManyToOne

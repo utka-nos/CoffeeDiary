@@ -11,11 +11,6 @@ spring:
   cloud:
     config:
       enabled: false
-  security:
-    oauth2:
-      authorization-server:
-        issuer-url: http://localhost:8082
-        introspection-endpoint: /oauth2/token-info
 
 
 eureka:

@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "coffee")
 public class Coffee {
 
     @Id
@@ -21,6 +22,7 @@ public class Coffee {
     private String name;
 
     @OneToMany
+    @JoinColumn(name = "coffee_id")
     private List<CoffeeDescription> coffeeDescriptions = new ArrayList<>();
 
     private Long userId;

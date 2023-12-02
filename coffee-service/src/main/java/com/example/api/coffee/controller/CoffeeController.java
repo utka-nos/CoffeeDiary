@@ -4,6 +4,7 @@ import com.example.api.coffee.service.CoffeeService;
 import com.example.dto.CoffeeDTO;
 import com.example.jsonviews.CoffeeJSONView;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class CoffeeController {
 
     @PostMapping
     @JsonView(CoffeeJSONView.Main.class)
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<CoffeeDTO> addNewCoffee(
             @RequestBody CoffeeDTO coffeeDTO
     ) {
