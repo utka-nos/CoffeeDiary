@@ -1,10 +1,14 @@
 package com.example.api.coffee.controller;
 
 import com.example.api.coffee.service.CoffeeService;
+import com.example.config.CoffeeServiceSecurityConfig;
 import com.example.dto.CoffeeDTO;
 import com.example.jsonviews.CoffeeJSONView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aspectj.lang.annotation.Before;
 import org.example.config.JwtContext;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,9 +17,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,8 +33,7 @@ import java.util.List;
 
 //@SpringBootTest - поднимает ВЕСЬ контекст, не подходит нам, это не интеграционный тест
 @WebMvcTest(controllers = CoffeeController.class)  // поднимает только, контекст связанный с указанным контроллером
-//TODO: подумать как при добавлении этого импорта избавиться от проблемы с авторизацией jwt токена без обращения в сервис авторизации
-@Import({JwtContext.class}) // импортируем настройкаи JWTConfig чтобы проверить авторизацию по jwt токену
+@Import({JwtContext.class, CoffeeServiceSecurityConfig.class}) // импортируем настройкаи JWTConfig чтобы проверить авторизацию по jwt токену
 @ActiveProfiles(profiles = {"test"})
 @AutoConfigureMockMvc
 class CoffeeControllerTest {
@@ -41,12 +47,16 @@ class CoffeeControllerTest {
     @MockBean
     private CoffeeService coffeeService;
 
+    @MockBean
+    private JwtDecoder jwtDecoder;
+
+    private final CoffeeDTO coffeeDTO      = new CoffeeDTO();
+    private final CoffeeDTO savedCoffeeDTO = new CoffeeDTO();
+
     @BeforeEach
     void setupCoffeeService() {
-        CoffeeDTO coffeeDTO = new CoffeeDTO();
         coffeeDTO.setName("brazil");
 
-        CoffeeDTO savedCoffeeDTO = new CoffeeDTO();
         savedCoffeeDTO.setName("brazil");
         savedCoffeeDTO.setId(1L);
 
@@ -54,16 +64,10 @@ class CoffeeControllerTest {
     }
 
     @Test
-    //@WithMockUser(authorities = {"USER"})
-    void addNewCoffee() throws Exception {
-        CoffeeDTO coffeeDTO = new CoffeeDTO();
-        coffeeDTO.setName("brazil");
+    void addNewCoffeeSuccess() throws Exception {
+        String coffeeDTOToSave = objectMapper.writer().writeValueAsString(coffeeDTO);
 
-        String s = objectMapper.writer().writeValueAsString(coffeeDTO);
-
-        coffeeDTO.setId(1L);
-
-        String ex = objectMapper.writerWithView(CoffeeJSONView.Main.class).forType(CoffeeDTO.class).writeValueAsString(coffeeDTO);
+        String expected = objectMapper.writerWithView(CoffeeJSONView.Main.class).forType(CoffeeDTO.class).writeValueAsString(savedCoffeeDTO);
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .post("/coffee")
@@ -77,12 +81,46 @@ class CoffeeControllerTest {
                                                 jwt.claim(StandardClaimNames.PREFERRED_USERNAME, "dima")
                                         )
                         )
-                        .content(s).contentType(MediaType.APPLICATION_JSON))
+                        //.with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .content(coffeeDTOToSave).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(201))
-                .andExpect(MockMvcResultMatchers.content().string(ex));
+                .andExpect(MockMvcResultMatchers.content().string(expected));
 
-        //Mockito.verify(coffeeService, Mockito.times(1)).addNewCoffee(coffeeDTO);
+        Mockito.verify(coffeeService, Mockito.times(1)).addNewCoffee(coffeeDTO);
+    }
 
+    @Test
+    void addNewCoffeeWithoutUserRole() throws Exception {
+        String coffeeDTOToSave = objectMapper.writer().writeValueAsString(coffeeDTO);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/coffee")
+                                .with(
+                                        SecurityMockMvcRequestPostProcessors
+                                                .jwt()
+                                                .authorities(
+                                                        List.of(new SimpleGrantedAuthority("ADMIN"))
+                                                )
+                                                .jwt(jwt ->
+                                                        jwt.claim(StandardClaimNames.PREFERRED_USERNAME, "dima")
+                                                )
+                                )
+                                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                                .content(coffeeDTOToSave).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().is(403));
+
+        Mockito.verify(coffeeService, Mockito.times(0)).addNewCoffee(coffeeDTO);
+    }
+
+    @Test
+    void addNewCoffeeWithoutJwtToken() throws Exception {
+        String coffeeDtoStr = objectMapper.writer().writeValueAsString(coffeeDTO);
+        mockMvc.perform(MockMvcRequestBuilders.post("/coffee")
+                .content(coffeeDtoStr)
+                        .with(SecurityMockMvcRequestPostProcessors.anonymous())
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .andExpect(MockMvcResultMatchers.status().is(401));
     }
 
     @Test
