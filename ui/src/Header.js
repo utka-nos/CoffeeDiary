@@ -2,6 +2,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
@@ -55,7 +56,7 @@ export function Header({setAuthorities}, {authorities}) {
     }
 
     const isActive = (path) => {
-      return path === window.location.pathname
+      return path === "/" + window.location.pathname.split('/')[1]
     }
 
     const btnLoginLogout = () => {
@@ -74,13 +75,20 @@ export function Header({setAuthorities}, {authorities}) {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 {/* home page */}
-                <Nav.Link href="/home"  active={isActive("/home")}>home</Nav.Link>
+                <Nav.Link href="/home"    active={isActive("/home")} >home</Nav.Link>
                 {/* users page */}
-                <Nav.Link href="/users" active={isActive("/users")}>users</Nav.Link>
+                <Nav.Link href="/users"   active={isActive("/users")}>users</Nav.Link>
                 {/* profile page */}
                 <Nav.Link href="/profile" active={isActive("/profile")} hidden={!authorized}>profile</Nav.Link>
                 {/* admin page */}
-                <Nav.Link href="/admin" active={isActive("/admin")} hidden={!isAdmin}>admin</Nav.Link>
+                <NavDropdown title="admin" id="basic-nav-dropdown" active={isActive("/admin")} hidden={!isAdmin}>
+                  <NavDropdown.Item href="/admin"             active={"/admin" === window.location.pathname}>
+                    Admin
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/admin/performance" active={"/admin/performance" === window.location.pathname}>
+                    Performances
+                  </NavDropdown.Item>
+                </NavDropdown>
               </Nav>
 
               {btnLoginLogout()}

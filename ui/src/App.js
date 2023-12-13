@@ -1,12 +1,13 @@
 import './App.css';
+import { useState } from 'react';
 import { Header } from './Header.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HomePage } from './pages/HomePage.js';
-import { LoginPage } from './pages/LoginPage.js';
-import { AuthorizePage } from './pages/AuthorizePage.js'
-import { AdminPage } from './pages/AdminPage.js'
-import { ProfilePage } from './pages/ProfilePage.js'
-import { useState } from 'react';
+import { HomePage }        from './pages/HomePage.js';
+import { LoginPage }       from './pages/LoginPage.js';
+import { AuthorizePage }   from './pages/AuthorizePage.js'
+import { AdminPage }       from './pages/AdminPage.js'
+import { ProfilePage }     from './pages/ProfilePage.js'
+import { PerformancePage } from './pages/PerformancePage.js'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/authorize" element={<AuthorizePage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/profile" element={<ProfilePage authorities={authorities} />} />
+          <Route path="/admin/performance" element={<PerformancePage />} />
         </Routes>
       </BrowserRouter>
     </div>

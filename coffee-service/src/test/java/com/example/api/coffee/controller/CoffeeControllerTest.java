@@ -3,12 +3,10 @@ package com.example.api.coffee.controller;
 import com.example.api.coffee.service.CoffeeService;
 import com.example.config.CoffeeServiceSecurityConfig;
 import com.example.dto.CoffeeDTO;
+import com.example.exceptions.CoffeeNotFoundException;
 import com.example.jsonviews.CoffeeJSONView;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.aspectj.lang.annotation.Before;
 import org.example.config.JwtContext;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,12 +15,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.repository.cdi.Eager;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -61,6 +57,8 @@ class CoffeeControllerTest {
         savedCoffeeDTO.setId(1L);
 
         Mockito.when(coffeeService.addNewCoffee(coffeeDTO)).thenReturn(savedCoffeeDTO);
+        Mockito.when(coffeeService.getCoffeeById(1L)).thenReturn(savedCoffeeDTO);
+        Mockito.when(coffeeService.getCoffeeById(100L)).thenThrow(new CoffeeNotFoundException());
     }
 
     @Test
@@ -124,7 +122,52 @@ class CoffeeControllerTest {
     }
 
     @Test
-    void getFullInfo() {
+    void getFullInfo_withUserRole() throws Exception {
+        String expected = objectMapper.writerWithView(CoffeeJSONView.Full.class).forType(CoffeeDTO.class).writeValueAsString(savedCoffeeDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/coffee/1")
+                .with(SecurityMockMvcRequestPostProcessors
+                        .jwt()
+                        .authorities(new SimpleGrantedAuthority("USER"))
+                ))
+                .andExpect(MockMvcResultMatchers.status().is(200))
+                .andExpect(MockMvcResultMatchers.content().string(expected));
+    }
+
+    @Test
+    void getFullInfo_withAdminRole() throws Exception {
+        String expected = objectMapper.writerWithView(CoffeeJSONView.Full.class).forType(CoffeeDTO.class).writeValueAsString(savedCoffeeDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/coffee/1")
+                        .with(SecurityMockMvcRequestPostProcessors
+                                .jwt()
+                                .authorities(new SimpleGrantedAuthority("ADMIN"))
+                        ))
+                .andExpect(MockMvcResultMatchers.status().is(200))
+                .andExpect(MockMvcResultMatchers.content().string(expected));
+    }
+
+    @Test
+    void getFullInfo_withAnonymousUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/coffee/1")
+                        .with(SecurityMockMvcRequestPostProcessors
+                                .anonymous()
+                        ))
+                .andExpect(MockMvcResultMatchers.status().is(401));
+    }
+
+    @Test
+    void getFullInfo_withInvalidCoffeeId() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/coffee/100").with(
+                        SecurityMockMvcRequestPostProcessors.jwt().authorities(new SimpleGrantedAuthority("USER"))
+                )
+        ).andExpect(MockMvcResultMatchers.status().is(404));
+
+        Mockito.verify(coffeeService, Mockito.times(1)).getCoffeeById(100L);
     }
 
     @Test
