@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.UserDTO;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +119,8 @@ public class AuthorizationServerConfig {
                         .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toSet());
                 context.getClaims().claim("roles", authorities);
+                Long userId = ((UserDTO) principal.getPrincipal()).getId();
+                context.getClaims().claim("user_id", userId.toString());
             }
         };
     }

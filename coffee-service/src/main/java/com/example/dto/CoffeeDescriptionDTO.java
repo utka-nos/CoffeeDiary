@@ -1,5 +1,6 @@
 package com.example.dto;
 
+import com.example.entity.Performance;
 import com.example.jsonviews.CoffeeDescriptionJSONView;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class CoffeeDescriptionDTO {
     @JsonView(CoffeeDescriptionJSONView.Main.class)
     private String value;
 
-    @JsonView(CoffeeDescriptionJSONView.Full.class)
-    private PerformanceDTO performance;
+    @JsonView(CoffeeDescriptionJSONView.Main.class)
+    private Performance performance;
 
 }

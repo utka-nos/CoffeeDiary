@@ -4,12 +4,13 @@ import com.example.api.coffee.service.CoffeeService;
 import com.example.dto.CoffeeDTO;
 import com.example.jsonviews.CoffeeJSONView;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,11 @@ public class CoffeeController {
     @JsonView(CoffeeJSONView.Main.class)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<CoffeeDTO> addNewCoffee(
-            @RequestBody CoffeeDTO coffeeDTO
+            @RequestBody CoffeeDTO coffeeDTO,
+            @AuthenticationPrincipal Jwt jwt
     ) {
+        String userId = jwt.getClaim("user_id");
+        coffeeDTO.setAuthorId(Long.valueOf(userId));
         CoffeeDTO savedCoffeeDTO = coffeeService.addNewCoffee(coffeeDTO);
 
         log.info("Saved new coffeeDTO: {{}}", savedCoffeeDTO);

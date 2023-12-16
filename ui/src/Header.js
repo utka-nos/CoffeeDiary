@@ -78,16 +78,22 @@ export function Header({setAuthorities}, {authorities}) {
                 <Nav.Link href="/home"    active={isActive("/home")} >home</Nav.Link>
                 {/* users page */}
                 <Nav.Link href="/users"   active={isActive("/users")}>users</Nav.Link>
+                {/* my coffees page */}
+                <Nav.Link href="/my-coffees"   active={isActive("/my-coffees")}>My coffees</Nav.Link>
                 {/* profile page */}
                 <Nav.Link href="/profile" active={isActive("/profile")} hidden={!authorized}>profile</Nav.Link>
                 {/* admin page */}
                 <NavDropdown title="admin" id="basic-nav-dropdown" active={isActive("/admin")} hidden={!isAdmin}>
-                  <NavDropdown.Item href="/admin"             active={"/admin" === window.location.pathname}>
+                  <NavDropdown.Item href="/admin" active={"/admin" === window.location.pathname}>
                     Admin
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/admin/performance" active={"/admin/performance" === window.location.pathname}>
-                    Performances
+                  <NavDropdown.Item href="/admin/coffee-descriptions" active={"/admin/coffee-descriptions" === window.location.pathname}>
+                    CoffeeDescriptions
                   </NavDropdown.Item>
+                  <NavDropdown.Item href="/admin/coffees" active={"/admin/coffees" === window.location.pathname}>
+                    Coffees
+                  </NavDropdown.Item>
+
                 </NavDropdown>
               </Nav>
 

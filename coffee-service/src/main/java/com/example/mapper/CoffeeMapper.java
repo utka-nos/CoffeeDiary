@@ -28,6 +28,8 @@ public class CoffeeMapper{
             coffee.setCoffeeDescriptions(new ArrayList<>());
         }
 
+        coffee.setAuthorId(coffeeDTO.getAuthorId());
+
         return coffee;
     }
 
@@ -47,6 +49,8 @@ public class CoffeeMapper{
         } else {
             coffeeDTO.setCoffeeDescriptions(new ArrayList<>());
         }
+
+        coffeeDTO.setAuthorId(coffee.getAuthorId());
 
         return coffeeDTO;
     }

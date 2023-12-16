@@ -7,7 +7,7 @@ import { LoginPage }       from './pages/LoginPage.js';
 import { AuthorizePage }   from './pages/AuthorizePage.js'
 import { AdminPage }       from './pages/AdminPage.js'
 import { ProfilePage }     from './pages/ProfilePage.js'
-import { PerformancePage } from './pages/PerformancePage.js'
+import { MyCoffeesPage }   from './pages/MyCoffeesPage.js'
 
 function App() {
 
@@ -23,7 +23,7 @@ function App() {
           <Route path="/authorize" element={<AuthorizePage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/profile" element={<ProfilePage authorities={authorities} />} />
-          <Route path="/admin/performance" element={<PerformancePage />} />
+          <Route path="/my-coffees" element={<MyCoffeesPage />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -25,6 +25,6 @@ public class Coffee {
     @JoinColumn(name = "coffee_id")
     private List<CoffeeDescription> coffeeDescriptions = new ArrayList<>();
 
-    private Long userId;
+    private Long authorId;
 
 }

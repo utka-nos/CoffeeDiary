@@ -21,10 +21,12 @@ public class CoffeeDescription {
 
     private String description;
 
+    //@Enumerated(EnumType.ORDINAL) - set type of column to `smallint`
+    //EnumType.STRING - makes column type to varchar
+    @Enumerated(EnumType.STRING)
+    private Performance performance;
+
     @Column(name = "`value`")
     private String value;
-
-    @ManyToOne
-    private Performance performance;
 
 }

@@ -25,5 +25,5 @@ public class CoffeeDTO {
     private List<CoffeeDescriptionDTO> coffeeDescriptions = new ArrayList<>();
 
     @JsonView(CoffeeJSONView.Main.class)
-    private UserDTO author;
+    private Long authorId;
 }
