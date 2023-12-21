@@ -75,6 +75,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- liquibase -->
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+
         <!-- other -->
 
         <dependency>

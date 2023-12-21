@@ -52,4 +52,12 @@ public class CoffeeService {
                 .map(CoffeeMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    public List<CoffeeDTO> getAllCoffeesByUserId(Long authorId) {
+        List<Coffee> coffeeByAuthorId = coffeeRepo.getCoffeeByAuthorId(authorId);
+
+        return coffeeByAuthorId.stream()
+                .map(CoffeeMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }

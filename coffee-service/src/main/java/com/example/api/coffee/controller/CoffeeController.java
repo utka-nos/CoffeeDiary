@@ -51,7 +51,7 @@ public class CoffeeController {
         return ResponseEntity.status(HttpStatus.OK).body(coffeeDTO);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/admin/all")
     @JsonView(CoffeeJSONView.Short.class)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<CoffeeDTO>> getAllCoffees() {
@@ -60,6 +60,18 @@ public class CoffeeController {
         log.info("Got all coffees. Total coffees: {{}}", coffeeDTOList.size());
 
         return ResponseEntity.ok(coffeeDTOList);
+    }
+
+    @GetMapping("/my-coffees")
+    @JsonView(CoffeeJSONView.Main.class)
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<List<CoffeeDTO>> getAllMyCoffees(
+            @AuthenticationPrincipal Jwt jwt
+    ) {
+        String userId = jwt.getClaim("user_id");
+        List<CoffeeDTO> coffees = coffeeService.getAllCoffeesByUserId(Long.valueOf(userId));
+
+        return ResponseEntity.ok(coffees);
     }
 
 }

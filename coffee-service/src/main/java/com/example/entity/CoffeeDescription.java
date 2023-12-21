@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 
 @Data
@@ -14,7 +16,13 @@ import lombok.NoArgsConstructor;
 public class CoffeeDescription {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "coffee_descriptions_id_seq")
+    @SequenceGenerator(
+            name = "coffee_descriptions_id_seq",
+            sequenceName = "coffee_descriptions_id_seq",
+            schema = "public",
+            allocationSize = 1
+    )
     private Long id;
 
     private String name;

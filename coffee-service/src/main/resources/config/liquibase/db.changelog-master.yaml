@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: dima
+      changes:
+        - createSequence:
+            cacheSize: 371717
+            cycle: true
+            dataType: int
+            incrementBy: 1
+            minValue: 1
+            schemaName: public
+            sequenceName: coffee_id_seq
+        - createSequence:
+            cacheSize: 371717
+            cycle: true
+            dataType: int
+            incrementBy: 1
+            minValue: 1
+            schemaName: public
+            sequenceName: coffee_descriptions_id_seq
+        - createTable:
+            tableName: coffee
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    default: nextval('coffee_id_seq')
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: coffee_descriptions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    default: nextval('coffee_descriptions_id_seq')
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: performance
+                  type: varchar(255)
+              - column:
+                  name: value
+                  type: varchar(255)
+              - column:
+                  name: coffee_id
+                  type: BIGINT
+
+
+
+
+
