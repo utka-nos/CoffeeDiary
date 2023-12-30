@@ -2,15 +2,22 @@ package com.example.api.coffeeDescription.controller;
 
 import com.example.api.coffeeDescription.service.CoffeeDescriptionService;
 import com.example.dto.CoffeeDescriptionDTO;
+import com.example.entity.Performance;
 import com.example.jsonviews.CoffeeDescriptionJSONView;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/description")
@@ -67,5 +74,11 @@ public class CoffeeDescriptionController {
         List<CoffeeDescriptionDTO> coffeeDescriptionDTOs = coffeeDescriptionService.getAllCoffeeDescriptions();
 
         return ResponseEntity.status(HttpStatus.OK).body(coffeeDescriptionDTOs);
+    }
+
+    @GetMapping("/performances")
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<Set<Performance>> getAllPerformances() {
+        return ResponseEntity.ok(Arrays.stream(Performance.values()).collect(Collectors.toSet()));
     }
 }

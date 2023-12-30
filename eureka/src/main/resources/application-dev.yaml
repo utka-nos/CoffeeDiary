@@ -1,12 +1,12 @@
 server:
-  port: ${EUREKA_PORT}
+  port: ${EUREKA_PORT:8761} # default 8761
 
 eureka:
   instance:
-    hostname: ${INSTANCE_HOST}
+    hostname: ${INSTANCE_HOST:127.0.0.1}
   client:
     service-url:
-      default: http://${EUREKA_HOST}:${EUREKA_PORT}
+      default: http://${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8761}
     fetch-registry: false
     register-with-eureka: false
 

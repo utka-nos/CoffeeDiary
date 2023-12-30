@@ -43,3 +43,13 @@ CREATE TABLE IF NOT EXISTS public.coffee_descriptions
   CONSTRAINT coffee_descriptions_pkey PRIMARY KEY (id)
 );
 
+--changeset dima:5
+
+ALTER TABLE coffee_descriptions ADD CONSTRAINT coffee_id_fk FOREIGN KEY (coffee_id) REFERENCES coffee (id) ON DELETE CASCADE;
+
+--changeset dima:6
+
+ALTER SEQUENCE coffee_id_seq CACHE 10;
+
+ALTER SEQUENCE coffee_descriptions_id_seq CACHE 10;
+

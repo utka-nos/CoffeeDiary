@@ -28,7 +28,7 @@ public class Coffee {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = CoffeeDescription.class)
     @JoinColumn(name = "coffee_id")
     private List<CoffeeDescription> coffeeDescriptions = new ArrayList<>();
 
